@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { NotificationIcon } from "./Icons";
 
 const Card = ({ image, title, logo, caption, subtitle }) => (
   <Container>
@@ -10,7 +9,6 @@ const Card = ({ image, title, logo, caption, subtitle }) => (
     </Cover>
     <Content>
       <Logo source={logo} />
-      <NotificationIcon />
       <Wrapper>
         <Caption>{caption}</Caption>
         <Subtitle>{subtitle}</Subtitle>
@@ -58,7 +56,7 @@ const Container = styled.View`
   border-radius: 14px;
   margin-left: 20px;
   margin-top: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
 `;
 
 const Cover = styled.View`

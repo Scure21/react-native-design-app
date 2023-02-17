@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const Logo = ({image, text}) => (
-    <Container>
-      <Image source={image} resizeMode="contain" />
-      <Text>{text}</Text>
-    </Container>
+const Logo = ({ image, text }) => (
+  <Container>
+    <Image source={image} resizeMode="contain" />
+    <Text>{text}</Text>
+  </Container>
 );
 
 export default Logo;
