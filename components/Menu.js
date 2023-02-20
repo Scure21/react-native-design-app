@@ -2,6 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import React, { useEffect, useState } from "react";
 import { Animated, TouchableOpacity, useWindowDimensions } from "react-native";
 import styled from "styled-components";
+import { useApp } from "../context/appContext";
 import MenuItem from "./MenuItem";
 
 let screenHeight;
@@ -9,21 +10,38 @@ let screenHeight;
 const Menu = () => {
   screenHeight = useWindowDimensions().height;
 
+  const {
+    state: { openMenu },
+    dispatch,
+  } = useApp();
+
   const [top, setTop] = useState(new Animated.Value(screenHeight));
 
-  const toggleMenu = () => {
+  const open = () => {
+    Animated.spring(top, {
+      toValue: 0,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const close = () => {
     Animated.spring(top, {
       toValue: screenHeight,
       useNativeDriver: false,
     }).start();
   };
 
+  const toggleMenu = () => {
+    if (openMenu) {
+      open();
+    } else {
+      close();
+    }
+  };
+
   useEffect(() => {
-    Animated.spring(top, {
-      toValue: 0,
-      useNativeDriver: false,
-    }).start();
-  }, [top]);
+    toggleMenu();
+  }, [openMenu]);
 
   return (
     <AnimatedContainer style={{ top }}>
@@ -33,7 +51,7 @@ const Menu = () => {
         <SubTitle>Staff Software Engineer at Willowtree</SubTitle>
       </Cover>
       <TouchableOpacity
-        onPress={toggleMenu}
+        onPress={() => dispatch({ type: "closeMenu" })}
         style={{
           position: "absolute",
           top: 120,

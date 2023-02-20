@@ -1,4 +1,4 @@
-import AppProvider from "./context/appContext";
+import { AppProvider } from "./context/appContext";
 import HomeScreen from "./screens/homeScreen";
 
 const App = () => (
