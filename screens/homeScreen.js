@@ -1,84 +1,159 @@
-import { SafeAreaView, ScrollView } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { useCallback, useEffect, useState } from "react";
+import {
+  Animated,
+  Easing,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import styled from "styled-components";
 import Card from "../components/Card";
 import Course from "../components/Course";
 import { NotificationIcon } from "../components/Icons";
 import Logo from "../components/Logo";
 import Menu from "../components/Menu";
+import { useApp } from "../context/appContext";
 
 const HomeScreen = () => {
+  const {
+    state: { openMenu },
+    dispatch,
+  } = useApp();
+
+  const [scale] = useState(new Animated.Value(1));
+  const [opacity] = useState(new Animated.Value(1));
+  const [statusBarStyle, setStatusBarStyle] = useState("dark");
+
+  const toggleMenu = useCallback(() => {
+    if (openMenu) {
+      // scaling animation
+      Animated.timing(scale, {
+        toValue: 0.9,
+        duration: 300,
+        easing: Easing.in(),
+        useNativeDriver: false,
+      }).start();
+
+      // opacity animation
+      Animated.spring(opacity, {
+        toValue: 0.5,
+        useNativeDriver: false,
+      }).start();
+
+      // Set the status bar to light
+      setStatusBarStyle("light");
+    }
+
+    if (!openMenu) {
+      Animated.timing(scale, {
+        toValue: 1,
+        duration: 300,
+        easing: Easing.in(),
+        useNativeDriver: false,
+      }).start();
+
+      Animated.spring(opacity, {
+        toValue: 1,
+        useNativeDriver: false,
+      }).start();
+
+      setStatusBarStyle("dark");
+    }
+  }, [openMenu]);
+
+  useEffect(() => {
+    toggleMenu();
+  }, [openMenu, statusBarStyle]);
+
   return (
-    <Container>
+    <RootView>
+      <StatusBar style={statusBarStyle} animated={true} />
       <Menu />
-      <SafeAreaView>
-        {/* ScrollView to make all the screen scrollable */}
-        <ScrollView style={{ height: "100%" }}>
-          <TitleBar>
-            <Avatar source={require("../assets/avatar.jpg")} />
-            <Title>Welcome back,</Title>
-            <Name>Stephanie</Name>
-            <NotificationIcon
-              style={{ position: "absolute", right: 20, top: 5 }}
-            />
-          </TitleBar>
-          {/* ScrollView to make the logos horizontally scrollable */}
-          <ScrollView
-            style={{
-              flexDirection: "row",
-              padding: 20,
-              paddingLeft: 12,
-              paddingTop: 30,
-            }}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          >
-            {logos.map((logo, id) => (
-              <Logo key={id} image={logo.image} text={logo.text} />
-            ))}
-          </ScrollView>
-          <Subtitle>Continue Learning</Subtitle>
-          {/* ScrollView to make the cards section horizontally scrollable */}
-          <ScrollView
-            horizontal={true}
-            style={{ paddingBottom: 30 }}
-            showsHorizontalScrollIndicator={false}
-          >
-            {cards.map((card, idx) => (
-              <Card
-                key={idx}
-                title={card.title}
-                image={card.image}
-                caption={card.caption}
-                logo={card.logo}
-                subtitle={card.subtitle}
+      <AnimatedContainer style={{ transform: [{ scale }], opacity }}>
+        <SafeAreaView>
+          {/* ScrollView to make all the screen scrollable */}
+          <ScrollView style={{ height: "100%" }}>
+            <TitleBar>
+              <TouchableOpacity
+                onPress={() => dispatch({ type: "openMenu" })}
+                style={{ position: "absolute", top: 0, left: 20 }}
+              >
+                <Avatar source={require("../assets/avatar.jpg")} />
+              </TouchableOpacity>
+              <Title>Welcome back,</Title>
+              <Name>Stephanie</Name>
+              <NotificationIcon
+                style={{ position: "absolute", right: 20, top: 5 }}
+              />
+            </TitleBar>
+            {/* ScrollView to make the logos horizontally scrollable */}
+            <ScrollView
+              style={{
+                flexDirection: "row",
+                padding: 20,
+                paddingLeft: 12,
+                paddingTop: 30,
+              }}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              {logos.map((logo, id) => (
+                <Logo key={id} image={logo.image} text={logo.text} />
+              ))}
+            </ScrollView>
+            <Subtitle>Continue Learning</Subtitle>
+            {/* ScrollView to make the cards section horizontally scrollable */}
+            <ScrollView
+              horizontal={true}
+              style={{ paddingBottom: 30 }}
+              showsHorizontalScrollIndicator={false}
+            >
+              {cards.map((card, idx) => (
+                <Card
+                  key={idx}
+                  title={card.title}
+                  image={card.image}
+                  caption={card.caption}
+                  logo={card.logo}
+                  subtitle={card.subtitle}
+                />
+              ))}
+            </ScrollView>
+            <Subtitle>Popular Courses</Subtitle>
+            {courses.map((course, index) => (
+              <Course
+                key={index}
+                image={course.image}
+                title={course.title}
+                subtitle={course.subtitle}
+                logo={course.logo}
+                author={course.author}
+                avatar={course.avatar}
+                caption={course.caption}
               />
             ))}
           </ScrollView>
-          <Subtitle>Popular Courses</Subtitle>
-          {courses.map((course, index) => (
-            <Course
-              key={index}
-              image={course.image}
-              title={course.title}
-              subtitle={course.subtitle}
-              logo={course.logo}
-              author={course.author}
-              avatar={course.avatar}
-              caption={course.caption}
-            />
-          ))}
-        </ScrollView>
-      </SafeAreaView>
-    </Container>
+        </SafeAreaView>
+      </AnimatedContainer>
+    </RootView>
   );
 };
 
 export default HomeScreen;
 
+const RootView = styled.View`
+  background: black;
+  flex: 1;
+`;
+
 const Container = styled.View`
   background: #f0f3f5;
   flex: 1;
+  border-radius: 10px;
 `;
+
+const AnimatedContainer = Animated.createAnimatedComponent(Container);
 
 const TitleBar = styled.View`
   width: 100%;
@@ -102,10 +177,10 @@ const Avatar = styled.Image`
   height: 44px;
   background: black;
   border-radius: 22px;
-  margin-left: 20px;
+  /* margin-left: 20px;
   position: absolute;
   top: 0;
-  left: 0;
+  left: 0; */
 `;
 const Subtitle = styled.Text`
   color: #b8bece;

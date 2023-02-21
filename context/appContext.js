@@ -6,9 +6,9 @@ export const appContext = createContext();
 const appReducer = (state, action) => {
   switch (action.type) {
     case "openMenu":
-      return { openMenu: state.openMenu };
+      return { openMenu: true };
     case "closeMenu":
-      return { openMenu: !state.openMenu };
+      return { openMenu: false };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

@@ -15,11 +15,11 @@ const Menu = () => {
     dispatch,
   } = useApp();
 
-  const [top, setTop] = useState(new Animated.Value(screenHeight));
+  const [top] = useState(new Animated.Value(screenHeight));
 
   const open = () => {
     Animated.spring(top, {
-      toValue: 0,
+      toValue: 58,
       useNativeDriver: false,
     }).start();
   };
@@ -105,6 +105,8 @@ const Container = styled.View`
   width: 100%;
   height: 100%;
   z-index: 100;
+  border-radius: 10px;
+  overflow: hidden;
 `;
 
 const AnimatedContainer = Animated.createAnimatedComponent(Container);
