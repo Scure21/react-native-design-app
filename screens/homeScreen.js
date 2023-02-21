@@ -27,40 +27,46 @@ const HomeScreen = () => {
 
   const toggleMenu = useCallback(() => {
     if (openMenu) {
-      // scaling animation
-      Animated.timing(scale, {
-        toValue: 0.9,
-        duration: 300,
-        easing: Easing.in(),
-        useNativeDriver: false,
-      }).start();
-
-      // opacity animation
-      Animated.spring(opacity, {
-        toValue: 0.5,
-        useNativeDriver: false,
-      }).start();
-
-      // Set the status bar to light
-      setStatusBarStyle("light");
-    }
-
-    if (!openMenu) {
-      Animated.timing(scale, {
-        toValue: 1,
-        duration: 300,
-        easing: Easing.in(),
-        useNativeDriver: false,
-      }).start();
-
-      Animated.spring(opacity, {
-        toValue: 1,
-        useNativeDriver: false,
-      }).start();
-
-      setStatusBarStyle("dark");
+      open();
+    } else {
+      close();
     }
   }, [openMenu]);
+
+  const open = () => {
+    // scaling animation
+    Animated.timing(scale, {
+      toValue: 0.9,
+      duration: 300,
+      easing: Easing.in(),
+      useNativeDriver: false,
+    }).start();
+
+    // opacity animation
+    Animated.spring(opacity, {
+      toValue: 0.5,
+      useNativeDriver: false,
+    }).start();
+
+    // Set the status bar to light
+    setStatusBarStyle("light");
+  };
+
+  const close = () => {
+    Animated.timing(scale, {
+      toValue: 1,
+      duration: 300,
+      easing: Easing.in(),
+      useNativeDriver: false,
+    }).start();
+
+    Animated.spring(opacity, {
+      toValue: 1,
+      useNativeDriver: false,
+    }).start();
+
+    setStatusBarStyle("dark");
+  };
 
   useEffect(() => {
     toggleMenu();
