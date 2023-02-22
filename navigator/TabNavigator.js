@@ -4,7 +4,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CoursesScreen from "../screens/CoursesScreen";
 import HomeScreen from "../screens/homeScreen";
 import ProjectsScreen from "../screens/ProjectsScreen";
-import SectionScreen from "../screens/SectionScreen";
 
 const activeColor = "#4775f2";
 const inactiveColor = "#b8bece";
@@ -21,15 +20,6 @@ const HomeStackScreen = () => (
       component={HomeScreen}
       options={{
         title: "Home",
-        headerShown: false,
-      }}
-    />
-    <HomeStack.Screen
-      name="Section"
-      component={SectionScreen}
-      options={{
-        title: "Section",
-        headerBackTitle: "home",
         headerShown: false,
       }}
     />
