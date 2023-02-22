@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import styled from "styled-components";
 import Card from "../components/Card";
 import Course from "../components/Course";
@@ -15,7 +16,7 @@ import Logo from "../components/Logo";
 import Menu from "../components/Menu";
 import { useApp } from "../context/appContext";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const {
     state: { openMenu },
     dispatch,
@@ -116,14 +117,18 @@ const HomeScreen = () => {
               showsHorizontalScrollIndicator={false}
             >
               {cards.map((card, idx) => (
-                <Card
+                <Pressable
                   key={idx}
-                  title={card.title}
-                  image={card.image}
-                  caption={card.caption}
-                  logo={card.logo}
-                  subtitle={card.subtitle}
-                />
+                  onPress={() => navigation.navigate("Section")}
+                >
+                  <Card
+                    title={card.title}
+                    image={card.image}
+                    caption={card.caption}
+                    logo={card.logo}
+                    subtitle={card.subtitle}
+                  />
+                </Pressable>
               ))}
             </ScrollView>
             <Subtitle>Popular Courses</Subtitle>

@@ -1,9 +1,9 @@
 import { AppProvider } from "./context/appContext";
-import HomeScreen from "./screens/homeScreen";
+import AppNavigator from "./navigator/AppNavigator";
 
 const App = () => (
   <AppProvider>
-    <HomeScreen />
+    <AppNavigator />
   </AppProvider>
 );
 
