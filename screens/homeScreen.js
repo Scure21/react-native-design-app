@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  View,
 } from "react-native";
 import styled from "styled-components";
 import Card from "../components/Card";
@@ -127,27 +128,29 @@ const HomeScreen = ({ navigation }) => {
                   if (error) return <Message>Error...</Message>;
 
                   return (
-                    <>
-                      {data.cardsCollection.items.map((card, idx) => (
-                        <Pressable
-                          key={idx}
-                          onPress={() =>
-                            navigation.navigate("Section", {
-                              section: card,
-                            })
-                          }
-                        >
-                          <Card
-                            title={card.title}
-                            image={card.image}
-                            caption={card.caption}
-                            logo={card.logo}
-                            subtitle={card.subtitle}
-                            content={card.content}
-                          />
-                        </Pressable>
-                      ))}
-                    </>
+                    <View style={{ flexDirection: "row", paddingLeft: 10 }}>
+                      {data.cardsCollection.items.map((card, idx) => {
+                        return (
+                          <Pressable
+                            key={idx}
+                            onPress={() =>
+                              navigation.navigate("Section", {
+                                section: card,
+                              })
+                            }
+                          >
+                            <Card
+                              title={card.title}
+                              image={card.image}
+                              caption={card.caption}
+                              logo={card.logo}
+                              subtitle={card.subtitle}
+                              content={card.content}
+                            />
+                          </Pressable>
+                        );
+                      })}
+                    </View>
                   );
                 }}
               </Query>
