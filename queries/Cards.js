@@ -28,6 +28,7 @@ const CardsQuery = gql`
           width
           height
         }
+        content
       }
     }
   }

@@ -143,6 +143,7 @@ const HomeScreen = ({ navigation }) => {
                             caption={card.caption}
                             logo={card.logo}
                             subtitle={card.subtitle}
+                            content={card.content}
                           />
                         </Pressable>
                       ))}
