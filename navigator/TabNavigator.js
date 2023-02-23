@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CoursesScreen from "../screens/CoursesScreen";
-import HomeScreen from "../screens/homeScreen";
+import HomeScreen from "../screens/HomeScreen";
 import ProjectsScreen from "../screens/ProjectsScreen";
 
 const activeColor = "#4775f2";
