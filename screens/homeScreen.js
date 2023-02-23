@@ -119,7 +119,11 @@ const HomeScreen = ({ navigation }) => {
               {cards.map((card, idx) => (
                 <Pressable
                   key={idx}
-                  onPress={() => navigation.navigate("Section")}
+                  onPress={() =>
+                    navigation.navigate("Section", {
+                      section: card,
+                    })
+                  }
                 >
                   <Card
                     title={card.title}
