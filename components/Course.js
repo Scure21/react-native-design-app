@@ -11,7 +11,7 @@ const Course = ({ image, logo, subtitle, title, avatar, caption, author }) => {
     if (screenWidth >= 768) {
       cardWidth = (screenWidth - 60) / 2;
     }
-    // 768 is roughly the screen width of landscape mode ipads
+    // 1024 is roughly the screen width of landscape mode ipads
     if (screenWidth >= 1024) {
       cardWidth = (screenWidth - 80) / 3;
     }

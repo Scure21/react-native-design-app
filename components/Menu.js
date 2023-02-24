@@ -6,9 +6,11 @@ import { useApp } from "../context/appContext";
 import MenuItem from "./MenuItem";
 
 let screenHeight;
+let screenWidth;
 
 const Menu = () => {
   screenHeight = useWindowDimensions().height;
+  screenWidth = useWindowDimensions().width;
 
   const {
     state: { openMenu },
@@ -16,6 +18,7 @@ const Menu = () => {
   } = useApp();
 
   const [top] = useState(new Animated.Value(screenHeight));
+  const [cardWidth, setCardWidth] = useState(screenWidth);
 
   const open = () => {
     Animated.spring(top, {
@@ -41,10 +44,16 @@ const Menu = () => {
 
   useEffect(() => {
     toggleMenu();
-  }, [openMenu]);
+    // 500 is the width of an iPhone XS Max in portrait mode
+    if (screenWidth > 500) {
+      setCardWidth(500);
+    }
+
+    console.log(cardWidth);
+  }, [openMenu, screenWidth]);
 
   return (
-    <AnimatedContainer style={{ top }}>
+    <AnimatedContainer style={{ top, width: cardWidth }}>
       <Cover>
         <Image source={require("../assets/background2.jpg")} />
         <Title>Stephanie Cure</Title>
@@ -102,7 +111,8 @@ const SubTitle = styled.Text`
 const Container = styled.View`
   position: absolute;
   background: white;
-  width: 100%;
+
+  align-self: center;
   height: 100%;
   z-index: 100;
   border-radius: 10px;
