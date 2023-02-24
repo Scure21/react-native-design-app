@@ -3,22 +3,21 @@ import React, { useEffect, useState } from "react";
 import { Animated, TouchableOpacity, useWindowDimensions } from "react-native";
 import styled from "styled-components";
 import { useApp } from "../context/appContext";
+import useMenuCardWidth from "../hooks/useMenuCardWidth";
 import MenuItem from "./MenuItem";
 
 let screenHeight;
-let screenWidth;
 
 const Menu = () => {
   screenHeight = useWindowDimensions().height;
-  screenWidth = useWindowDimensions().width;
 
+  const { cardWidth } = useMenuCardWidth();
   const {
     state: { openMenu },
     dispatch,
   } = useApp();
 
   const [top] = useState(new Animated.Value(screenHeight));
-  const [cardWidth, setCardWidth] = useState(screenWidth);
 
   const open = () => {
     Animated.spring(top, {
@@ -44,11 +43,7 @@ const Menu = () => {
 
   useEffect(() => {
     toggleMenu();
-    // 500 is the width of an iPhone XS Max in portrait mode
-    if (screenWidth > 500) {
-      setCardWidth(500);
-    }
-  }, [openMenu, screenWidth]);
+  }, [openMenu]);
 
   return (
     <AnimatedContainer style={{ top, width: cardWidth }}>
