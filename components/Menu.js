@@ -48,8 +48,6 @@ const Menu = () => {
     if (screenWidth > 500) {
       setCardWidth(500);
     }
-
-    console.log(cardWidth);
   }, [openMenu, screenWidth]);
 
   return (
