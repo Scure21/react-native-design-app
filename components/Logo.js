@@ -2,18 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 const Logo = ({ image, text }) => (
-  <Container>
+  <Container style={{ elevation: 10 }}>
     <Image source={image} resizeMode="contain" />
     <Text>{text}</Text>
   </Container>
 );
 
 export default Logo;
-
-const LogosWrapper = styled.View`
-  flex-direction: row;
-  padding: 20px 12px;
-`;
 
 const Container = styled.View`
   padding: 12px 16px 12px;

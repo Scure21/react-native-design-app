@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { ScrollView, TouchableOpacity } from "react-native";
+import { Platform, ScrollView, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import MarkDownWrapper from "../components/MarkDown";
 
@@ -10,6 +10,7 @@ const SectionScreen = ({ navigation, route }) => {
   const { section } = route.params;
 
   useEffect(() => {
+    if (Platform.OS === "android") setStatusBarStyle("dark");
     return () => setStatusBarStyle("dark");
   }, []);
 

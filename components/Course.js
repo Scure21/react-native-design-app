@@ -1,31 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Dimensions, useWindowDimensions } from "react-native";
 import styled from "styled-components";
 
-const Course = ({ image, logo, subtitle, title, avatar, caption, author }) => (
-  <Container>
-    <Cover>
-      <Image source={image} />
-      <Logo source={logo} resizeMode="contain" />
-      <Subtitle>{subtitle}</Subtitle>
-      <Title>{title}</Title>
-    </Cover>
-    <Content>
-      <Avatar source={avatar} />
-      <Caption>{caption}</Caption>
-      <Author>Taught by {author}</Author>
-    </Content>
-  </Container>
-);
+const Course = ({ image, logo, subtitle, title, avatar, caption, author }) => {
+  const screenWidth = useWindowDimensions().width;
+
+  const getCourseCardWidth = (screenWidth) => {
+    let cardWidth = screenWidth - 40;
+    // 768 is roughly the screen width of portrait mode ipads
+    if (screenWidth >= 768) {
+      cardWidth = (screenWidth - 60) / 2;
+    }
+    // 768 is roughly the screen width of landscape mode ipads
+    if (screenWidth >= 1024) {
+      cardWidth = (screenWidth - 80) / 3;
+    }
+    return cardWidth;
+  };
+
+  const [cardWidth, setCardWidth] = useState(getCourseCardWidth(screenWidth));
+
+  const adaptLayout = (dimensions) => {
+    setCardWidth(getCourseCardWidth(dimensions.window.width));
+  };
+
+  useEffect(() => {
+    // Adapt layout when dimensions change to avoid weird behavior
+    Dimensions.addEventListener("change", adaptLayout);
+  }, [cardWidth]);
+
+  return (
+    <Container style={{ width: cardWidth }}>
+      <Cover>
+        <Image source={image} />
+        <Logo source={logo} resizeMode="contain" />
+        <Subtitle>{subtitle}</Subtitle>
+        <Title>{title}</Title>
+      </Cover>
+      <Content>
+        <Avatar source={avatar} />
+        <Caption>{caption}</Caption>
+        <Author>Taught by {author}</Author>
+      </Content>
+    </Container>
+  );
+};
 
 export default Course;
 
 const Container = styled.View`
-  /* width: 335px;
-  height: 335px; */
+  height: 335px;
   border-radius: 14px;
   background: white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  margin: 15px 20px;
+  margin: 10px;
 `;
 
 const Content = styled.View`

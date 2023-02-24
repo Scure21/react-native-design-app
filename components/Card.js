@@ -1,21 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 
-const Card = ({ image, title, logo, caption, subtitle }) => (
-  <Container style={{ elevation: 10 }}>
-    <Cover>
-      <Image source={image} />
-      <Title>{title}</Title>
-    </Cover>
-    <Content>
-      <Logo source={logo} />
-      <Wrapper>
-        <Caption>{caption}</Caption>
-        <Subtitle>{subtitle}</Subtitle>
-      </Wrapper>
-    </Content>
-  </Container>
-);
+const Card = ({ image, title, logo, caption, subtitle }) => {
+  return (
+    <Container style={{ elevation: 10 }}>
+      <Cover>
+        <Image source={image} />
+        <Title>{title}</Title>
+      </Cover>
+      <Content>
+        <Logo source={logo} />
+        <Wrapper>
+          <Caption>{caption}</Caption>
+          <Subtitle>{subtitle}</Subtitle>
+        </Wrapper>
+      </Content>
+    </Container>
+  );
+};
 
 export default Card;
 
