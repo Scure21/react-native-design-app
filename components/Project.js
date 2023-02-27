@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Project = ({ imgSource, title, author, text }) => {
   return (
-    <Container>
+    <Container style={{ elevation: 10 }}>
       <Cover>
         <Image source={imgSource} />
         <Title>{title}</Title>
