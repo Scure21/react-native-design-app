@@ -56,6 +56,19 @@ const TabsNavigator = () => {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
+        name="Project"
+        component={ProjectStackScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="ios-folder"
+              size={24}
+              color={focused ? activeColor : inactiveColor}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Home"
         component={HomeStackScreen}
         options={{
@@ -75,19 +88,6 @@ const TabsNavigator = () => {
           tabBarIcon: ({ focused }) => (
             <Ionicons
               name="ios-albums"
-              size={24}
-              color={focused ? activeColor : inactiveColor}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Project"
-        component={ProjectStackScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name="ios-folder"
               size={24}
               color={focused ? activeColor : inactiveColor}
             />
