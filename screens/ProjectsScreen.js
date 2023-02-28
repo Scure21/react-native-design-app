@@ -74,16 +74,18 @@ const ProjectsScreen = () => {
           Animated.timing(pan, {
             toValue: { x: 0, y: 1000 },
             useNativeDriver: true,
-          }).start(() => {
-            // reset all states
-            pan.setValue({ x: 0, y: 0 });
-            scale.setValue(0.9);
-            translateY.setValue(44);
-            thirdCardScale.setValue(0.8);
-            thirdCardTranslateY.setValue(-50);
-            // set index
-            index.current = getNextIndex(index.current);
-            setIdx(getNextIndex(index.current));
+          }).start(({ finished }) => {
+            if (finished) {
+              // reset all states
+              pan.setValue({ x: 0, y: 0 });
+              scale.setValue(0.9);
+              translateY.setValue(44);
+              thirdCardScale.setValue(0.8);
+              thirdCardTranslateY.setValue(-50);
+              // set index
+              index.current = getNextIndex(index.current);
+              setIdx(getNextIndex(index.current));
+            }
           });
         } else {
           // Set first card to its initial position
@@ -115,9 +117,6 @@ const ProjectsScreen = () => {
       },
     })
   ).current;
-
-  console.log("indexRef after change", index.current);
-  console.log("idx after change", idx);
 
   return (
     <View style={styles.container}>
