@@ -11,10 +11,7 @@ import styled from "styled-components";
 import { useApp } from "../context/appContext";
 
 const Project = ({ imgSource, title, author, text, canOpen }) => {
-  const {
-    state: { openProjectCard },
-    dispatch,
-  } = useApp();
+  const { dispatch } = useApp();
 
   const { height, width } = useWindowDimensions();
   const tabBarHeight = 47; // This is roughly the height for an iPhone XS
