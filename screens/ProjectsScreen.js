@@ -1,9 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { Animated, PanResponder, StyleSheet, View } from "react-native";
 import Project from "../components/Project";
+import { useApp } from "../context/appContext";
 import { projectsData } from "../data/Projects";
 
 const ProjectsScreen = () => {
+  const {
+    state: { openProjectCard },
+  } = useApp();
+
   const getNextIndex = (idx) => {
     const nextIndex = idx + 1;
     if (nextIndex > projectsData.length - 1) {
@@ -24,13 +29,24 @@ const ProjectsScreen = () => {
   const index = useRef(0);
   const [idx, setIdx] = useState(0);
 
-  const panResponder = useRef(
+  const panResponder = useMemo(() => {
     /**
      * For more information about the panResponder callbacks
      * check: https://reactnative.dev/docs/panresponder
      */
-    PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
+    return PanResponder.create({
+      onMoveShouldSetPanResponder: (event, gestureState) => {
+        // enable pan gesture only when the card is moving, this prevents
+        // conflicts between the tap and pan gestures
+        if (gestureState.dx === 0 && gestureState.dy === 0) {
+        } else {
+          if (openProjectCard) {
+            return false;
+          } else {
+            return true;
+          }
+        }
+      },
       /**
        * onPanResponderGrant is called when a gesture is "started"
        * while onPanResponderStart is called on additional gesture events.
@@ -115,8 +131,8 @@ const ProjectsScreen = () => {
           }).start();
         }
       },
-    })
-  ).current;
+    });
+  }, [openProjectCard]);
 
   return (
     <View style={styles.container}>
@@ -129,6 +145,7 @@ const ProjectsScreen = () => {
           imgSource={projectsData[idx].image}
           author={projectsData[idx].author}
           text={projectsData[idx].text}
+          canOpen={true}
         />
       </Animated.View>
 
