@@ -6,9 +6,13 @@ export const appContext = createContext();
 const appReducer = (state, action) => {
   switch (action.type) {
     case "openMenu":
-      return { openMenu: true };
+      return { ...state, openMenu: true };
     case "closeMenu":
-      return { openMenu: false };
+      return { ...state, openMenu: false };
+    case "openProjectCard":
+      return { ...state, openProjectCard: true };
+    case "closeProjectCard":
+      return { ...state, openProjectCard: false };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -16,7 +20,11 @@ const appReducer = (state, action) => {
 
 const AppProvider = ({ children }) => {
   // this state will be shared with all components
-  const [state, dispatch] = useReducer(appReducer, { openMenu: true });
+  const [state, dispatch] = useReducer(appReducer, {
+    openMenu: true,
+    openProjectCard: false,
+  });
+
   const value = { state, dispatch };
   return (
     // this is the provider providing state
