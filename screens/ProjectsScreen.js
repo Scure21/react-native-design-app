@@ -20,10 +20,13 @@ const ProjectsScreen = () => {
     thirdCardScale,
     thirdCardTranslateY,
     panHandlers,
+    maskOpacity,
   } = usePanResponder(openProjectCard);
 
   return (
     <View style={styles.container}>
+      <Animated.View style={[styles.mask, { opacity: maskOpacity }]} />
+
       <Animated.View
         style={{ transform: [{ translateX: pan.x }, { translateY: pan.y }] }}
         {...panHandlers}
@@ -95,5 +98,15 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
+  },
+  mask: {
+    flex: 1,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.25)",
+    zIndex: -3,
   },
 });

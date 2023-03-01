@@ -20,6 +20,9 @@ export default function usePanResponder(openProjectCard) {
   const [thirdCardScale] = useState(new Animated.Value(0.8));
   const [thirdCardTranslateY] = useState(new Animated.Value(-50));
 
+  // mask background
+  const [maskOpacity] = useState(new Animated.Value(0));
+
   const index = useRef(0);
   const [idx, setIdx] = useState(0);
 
@@ -66,6 +69,8 @@ export default function usePanResponder(openProjectCard) {
   };
 
   const onPanResponderGrant = () => {
+    // Animate background
+    Animated.timing(maskOpacity, { toValue: 1, useNativeDriver: true }).start();
     // Animate second card
     Animated.spring(scale, { toValue: 1, useNativeDriver: true }).start();
     Animated.spring(translateY, {
@@ -89,6 +94,8 @@ export default function usePanResponder(openProjectCard) {
   });
 
   const onPanResponderRelease = () => {
+    // Fade background
+    Animated.timing(maskOpacity, { toValue: 0, useNativeDriver: true }).start();
     // Detect x and y position to know if we ned to drop the cards
     const positionY = pan.y.__getValue();
 
@@ -152,5 +159,6 @@ export default function usePanResponder(openProjectCard) {
     thirdCardScale,
     thirdCardTranslateY,
     panHandlers: panResponder.panHandlers,
+    maskOpacity,
   };
 }
