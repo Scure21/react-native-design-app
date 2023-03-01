@@ -13,13 +13,13 @@ const ProjectsScreen = () => {
   };
 
   // XY values for the first card
-  const pan = useRef(new Animated.ValueXY()).current;
+  const [pan] = useState(new Animated.ValueXY());
   // second card
-  const scale = useRef(new Animated.Value(0.9)).current;
-  const translateY = useRef(new Animated.Value(44)).current;
+  const [scale] = useState(new Animated.Value(0.9));
+  const [translateY] = useState(new Animated.Value(44));
   // third card
-  const thirdCardScale = useRef(new Animated.Value(0.8)).current;
-  const thirdCardTranslateY = useRef(new Animated.Value(-50)).current;
+  const [thirdCardScale] = useState(new Animated.Value(0.8));
+  const [thirdCardTranslateY] = useState(new Animated.Value(-50));
 
   const index = useRef(0);
   const [idx, setIdx] = useState(0);
@@ -125,10 +125,10 @@ const ProjectsScreen = () => {
         {...panResponder.panHandlers}
       >
         <Project
-          title={projectsData[index.current].title}
-          imgSource={projectsData[index.current].image}
-          author={projectsData[index.current].author}
-          text={projectsData[index.current].text}
+          title={projectsData[idx].title}
+          imgSource={projectsData[idx].image}
+          author={projectsData[idx].author}
+          text={projectsData[idx].text}
         />
       </Animated.View>
 
@@ -147,10 +147,10 @@ const ProjectsScreen = () => {
         }}
       >
         <Project
-          title={projectsData[getNextIndex(index.current)].title}
-          imgSource={projectsData[getNextIndex(index.current)].image}
-          author={projectsData[getNextIndex(index.current)].author}
-          text={projectsData[getNextIndex(index.current)].text}
+          title={projectsData[getNextIndex(idx)].title}
+          imgSource={projectsData[getNextIndex(idx)].image}
+          author={projectsData[getNextIndex(idx)].author}
+          text={projectsData[getNextIndex(idx)].text}
         />
       </Animated.View>
 
@@ -172,10 +172,10 @@ const ProjectsScreen = () => {
         }}
       >
         <Project
-          title={projectsData[getNextIndex(index.current + 1)].title}
-          imgSource={projectsData[getNextIndex(index.current + 1)].image}
-          author={projectsData[getNextIndex(index.current + 1)].author}
-          text={projectsData[getNextIndex(index.current + 1)].text}
+          title={projectsData[getNextIndex(idx + 1)].title}
+          imgSource={projectsData[getNextIndex(idx + 1)].image}
+          author={projectsData[getNextIndex(idx + 1)].author}
+          text={projectsData[getNextIndex(idx + 1)].text}
         />
       </Animated.View>
     </View>
