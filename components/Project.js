@@ -8,8 +8,14 @@ import {
   useWindowDimensions,
 } from "react-native";
 import styled from "styled-components";
+import { useApp } from "../context/appContext";
 
-const Project = ({ imgSource, title, author, text }) => {
+const Project = ({ imgSource, title, author, text, canOpen }) => {
+  const {
+    state: { openProjectCard },
+    dispatch,
+  } = useApp();
+
   const { height, width } = useWindowDimensions();
   const tabBarHeight = 47; // This is roughly the height for an iPhone XS
 
@@ -18,6 +24,9 @@ const Project = ({ imgSource, title, author, text }) => {
   const [buttonOpacity] = useState(new Animated.Value(0));
 
   const openCard = useCallback(() => {
+    dispatch({ type: "openProjectCard" });
+    if (!canOpen) return;
+
     Animated.spring(cardWidth, {
       toValue: width,
       useNativeDriver: false, // TLDR; Width and Height are not supported by the native driver. Can't be animated natively. We have to do it with JS
@@ -38,6 +47,8 @@ const Project = ({ imgSource, title, author, text }) => {
   }, []);
 
   const closeCard = () => {
+    dispatch({ type: "closeProjectCard" });
+
     Animated.spring(cardWidth, {
       toValue: 315,
       useNativeDriver: false,
