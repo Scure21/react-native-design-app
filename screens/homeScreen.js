@@ -14,6 +14,7 @@ import styled from "styled-components";
 import Card from "../components/Card";
 import Course from "../components/Course";
 import { NotificationIcon } from "../components/Icons";
+import LoginModal from "../components/LoginModal";
 import Logo from "../components/Logo";
 import Menu from "../components/Menu";
 import { useApp } from "../context/appContext";
@@ -179,6 +180,7 @@ const HomeScreen = ({ navigation }) => {
           </ScrollView>
         </SafeAreaView>
       </AnimatedContainer>
+      <LoginModal />
     </RootView>
   );
 };
