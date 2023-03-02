@@ -1,9 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useCallback, useState } from "react";
 import {
   Animated,
   Pressable,
   StatusBar,
+  StyleSheet,
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
@@ -19,6 +21,7 @@ const Project = ({ imgSource, title, author, text, canOpen }) => {
   const [cardWidth] = useState(new Animated.Value(315));
   const [cardHeight] = useState(new Animated.Value(460));
   const [buttonOpacity] = useState(new Animated.Value(0));
+  const [textHeight] = useState(new Animated.Value(100));
 
   const openCard = useCallback(() => {
     dispatch({ type: "openProjectCard" });
@@ -37,6 +40,12 @@ const Project = ({ imgSource, title, author, text, canOpen }) => {
     Animated.timing(buttonOpacity, {
       toValue: 1,
       useNativeDriver: true,
+    }).start();
+
+    // Expand text
+    Animated.spring(textHeight, {
+      toValue: 1000,
+      useNativeDriver: false,
     }).start();
 
     // hide status bar
@@ -61,6 +70,12 @@ const Project = ({ imgSource, title, author, text, canOpen }) => {
       useNativeDriver: true,
     }).start();
 
+    // Reset text height
+    Animated.spring(textHeight, {
+      toValue: 100,
+      useNativeDriver: false,
+    }).start();
+
     // hide status bar
     StatusBar.setHidden(false);
   };
@@ -77,7 +92,19 @@ const Project = ({ imgSource, title, author, text, canOpen }) => {
           <Author>by {author}</Author>
         </Cover>
 
-        <Text>{text}</Text>
+        <Animated.Text style={[styles.text, { height: textHeight }]}>
+          {text}
+        </Animated.Text>
+
+        <AnimatedLinearGradient
+          colors={["rgba(255,255,255,0)", "rgba(255,255,255,1)"]}
+          style={{
+            position: "absolute",
+            top: 330,
+            width: "100%",
+            height: textHeight,
+          }}
+        />
 
         <TouchableOpacity
           onPress={closeCard}
@@ -93,6 +120,17 @@ const Project = ({ imgSource, title, author, text, canOpen }) => {
 };
 
 export default Project;
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 17,
+    margin: 20,
+    lineHeight: 24,
+    color: "#3c4560",
+  },
+});
+
+const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
 const Container = styled.View`
   width: 315px;
@@ -134,13 +172,6 @@ const Author = styled.Text`
   font-size: 15px;
   font-weight: 600;
   text-transform: uppercase;
-`;
-
-const Text = styled.Text`
-  font-size: 17px;
-  margin: 20px;
-  line-height: 24px;
-  color: #3c4560;
 `;
 
 const CloseView = styled.View`

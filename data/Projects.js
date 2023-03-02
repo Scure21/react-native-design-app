@@ -3,7 +3,7 @@ export const projectsData = [
     title: "Price Tag",
     image: require("../assets/background5.jpg"),
     author: "Stephanie Cure",
-    text: "Thanks to Design+Code, I improved my design skill and learned to do animations for my app Price Tag, a top news app in China.",
+    text: "Thanks to Design+Code, I improved my design skill and learned to do animations for my app Price Tag, a top news app in China. Thanks to Design+Code, I improved my design skill and learned to do animations for my app Price Tag, a top news app in China. ",
   },
   {
     title: "The DM App - Ananoumous Chat",
