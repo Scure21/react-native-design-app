@@ -13,6 +13,10 @@ const appReducer = (state, action) => {
       return { ...state, openProjectCard: true };
     case "closeProjectCard":
       return { ...state, openProjectCard: false };
+    case "openLogin":
+      return { ...state, openLogin: true };
+    case "closeLogin":
+      return { ...state, openLogin: false };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -21,8 +25,9 @@ const appReducer = (state, action) => {
 const AppProvider = ({ children }) => {
   // this state will be shared with all components
   const [state, dispatch] = useReducer(appReducer, {
-    openMenu: true,
+    openMenu: false,
     openProjectCard: false,
+    openLogin: false,
   });
 
   const value = { state, dispatch };

@@ -16,7 +16,6 @@ import Course from "../components/Course";
 import { NotificationIcon } from "../components/Icons";
 import LoginModal from "../components/LoginModal";
 import Logo from "../components/Logo";
-import Menu from "../components/Menu";
 import { useApp } from "../context/appContext";
 import { coursesData } from "../data/Courses";
 import { logosData } from "../data/Logos";
@@ -82,14 +81,14 @@ const HomeScreen = ({ navigation }) => {
   return (
     <RootView>
       <StatusBar style={statusBarStyle} animated={true} />
-      <Menu />
+      {/* <Menu /> */}
       <AnimatedContainer style={{ transform: [{ scale }], opacity }}>
         <SafeAreaView>
           {/* ScrollView to make all the screen scrollable */}
           <ScrollView style={{ height: "100%" }}>
             <TitleBar>
               <TouchableOpacity
-                onPress={() => dispatch({ type: "openMenu" })}
+                onPress={() => dispatch({ type: "openLogin" })}
                 style={{ position: "absolute", top: 0, left: 20 }}
               >
                 <Avatar source={require("../assets/avatar.jpg")} />
