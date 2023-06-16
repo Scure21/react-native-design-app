@@ -7,4 +7,14 @@ With this code you won't be able to consume the data from Contentful because you
 Here is a picture of what the app looks like in different devices:
 
 
-<img width="1750" alt="Screenshot 2023-02-24 at 10 39 25 AM" src="https://user-images.githubusercontent.com/18404383/221222536-da37bea1-3acc-4036-8e71-8acb0e260ea2.png">
+<img width="800" alt="Screenshot 2023-02-24 at 10 39 25 AM" src="https://user-images.githubusercontent.com/18404383/221222536-da37bea1-3acc-4036-8e71-8acb0e260ea2.png">
+
+Here are a couple of videos of the app in action:
+
+<img src=https://github.com/Scure21/react-native-design-app/assets/18404383/5a6bc61b-94d7-4b33-a952-912b88334bbc width="200" height="400"/>
+
+<img src=https://github.com/Scure21/react-native-design-app/assets/18404383/9f60e84b-4bb6-4896-9392-599d7e67af86 width="200" height="400"/>
+
+
+
+
