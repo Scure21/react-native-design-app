@@ -1,6 +1,9 @@
 ### DESCRIPTION
 
-This project was done following the designcode.io React Native course for designers as a means of testing out a few transitions/animations and practice some RN specific elements such as navigation, layout adjustment for different screen sizes and getting data through a CMS.
+This project was done following the designcode.io React Native course for designers as a means of testing out:
+- few transitions/animations
+- practice some RN specific elements such as navigation, layout adjustment for different screen sizes and getting data through a CMs
+- Use the `PanResponder` [API](https://reactnative.dev/docs/panresponder) to handle gestures 
 
 With this code you won't be able to consume the data from Contentful because you'd need to create an account and add your SPACE_ID and APOLLO_CLIENT_TOKEN. If you don't want to go that route, the `data` folder has some static data you can use for the cards and courses, you'd need to adjust things accordingly. 
 
